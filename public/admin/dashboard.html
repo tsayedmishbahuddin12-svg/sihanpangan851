@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - SIHANPANGAN851</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+    <header>
+        <h1>Dashboard Admin</h1>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </header>
+
+    <main class="container">
+        <div class="admin-menu">
+            <div class="admin-card" onclick="location.href='manage-pleton.html'">
+                <h3>📋 Kelola Pleton</h3>
+                <p>Tambah, edit, hapus pleton</p>
+            </div>
+            <div class="admin-card" onclick="location.href='manage-items.html'">
+                <h3>🌾 Kelola Tanaman/Ternak</h3>
+                <p>Tambah, edit, hapus item</p>
+            </div>
+            <div class="admin-card" onclick="location.href='manage-data.html'">
+                <h3>📊 Kelola Data Budidaya</h3>
+                <p>Tambah, edit, hapus data tabel</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/admin-dashboard.js"></script>
+</body>
+</html>

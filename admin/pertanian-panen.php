@@ -1,0 +1,117 @@
+<?php
+session_start();
+if (!isset($_SESSION['admin_id'])) {
+    header('Location: login.php');
+    exit;
+}
+
+require_once '../config/database.php';
+$conn = getConnection();
+
+// Handle delete
+if (isset($_GET['delete'])) {
+    $id = (int)$_GET['delete'];
+    $conn->query("DELETE FROM pertanian_panen_belanja WHERE id = $id");
+    header('Location: pertanian-panen.php?success=deleted');
+    exit;
+}
+
+// Get data
+$data = $conn->query("SELECT * FROM pertanian_panen_belanja ORDER BY tanggal_panen DESC");
+
+closeConnection($conn);
+?>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Panen & Belanja - Admin</title>
+    <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <?php include 'includes/sidebar.php'; ?>
+        
+        <div class="main-content">
+            <div class="topbar">
+                <h1>Laporan Hasil Panen dan Belanja Tanaman</h1>
+                <div class="topbar-right">
+                    <span class="user-info">👤 <?= $_SESSION['admin_name'] ?></span>
+                    <a href="logout.php" class="btn-logout">Logout</a>
+                </div>
+            </div>
+            
+            <div class="content-area">
+                <?php if (isset($_GET['success'])): ?>
+                    <div class="alert alert-success">
+                        <?php
+                        if ($_GET['success'] == 'added') echo 'Data berhasil ditambahkan!';
+                        if ($_GET['success'] == 'updated') echo 'Data berhasil diupdate!';
+                        if ($_GET['success'] == 'deleted') echo 'Data berhasil dihapus!';
+                        ?>
+                    </div>
+                <?php endif; ?>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Daftar Data Panen & Belanja</h3>
+                        <a href="pertanian-panen-tambah.php" class="btn btn-primary">+ Tambah Data</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Tanggal Panen</th>
+                                        <th>Komoditas</th>
+                                        <th>Pleton</th>
+                                        <th>Luas (Ha)</th>
+                                        <th>Hasil (Kg)</th>
+                                        <th>Harga (Rp)</th>
+                                        <th>Jumlah (Rp)</th>
+                                        <th>Keterangan</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php 
+                                    $no = 1;
+                                    while ($row = $data->fetch_assoc()): 
+                                    ?>
+                                        <tr>
+                                            <td><?= $no++ ?></td>
+                                            <td><?= date('d/m/Y', strtotime($row['tanggal_panen'])) ?></td>
+                                            <td><?= htmlspecialchars($row['komoditas']) ?></td>
+                                            <td><?= htmlspecialchars($row['pleton']) ?></td>
+                                            <td><?= number_format($row['luas'], 2) ?></td>
+                                            <td><?= number_format($row['hasil'], 2) ?></td>
+                                            <td><?= number_format($row['harga'], 0) ?></td>
+                                            <td><?= number_format($row['jumlah'], 0) ?></td>
+                                            <td><?= htmlspecialchars($row['keterangan']) ?></td>
+                                            <td>
+                                                <a href="pertanian-panen-edit.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-primary">Edit</a>
+                                                <a href="pertanian-panen.php?delete=<?= $row['id'] ?>" 
+                                                   class="btn btn-sm btn-danger" 
+                                                   onclick="return confirm('Yakin ingin menghapus?')">Hapus</a>
+                                            </td>
+                                        </tr>
+                                    <?php endwhile; ?>
+                                    <?php if ($data->num_rows == 0): ?>
+                                        <tr>
+                                            <td colspan="10" style="text-align: center; padding: 2rem;">
+                                                Belum ada data
+                                            </td>
+                                        </tr>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

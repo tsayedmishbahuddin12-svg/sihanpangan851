@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Budidaya - SIHANPANGAN851</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <button class="back-btn" onclick="history.back()">← Kembali</button>
+        <h1 id="itemTitle">Loading...</h1>
+    </header>
+
+    <main class="container">
+        <div class="table-controls">
+            <input type="text" id="searchInput" placeholder="Cari data..." class="search-input">
+        </div>
+
+        <div class="table-wrapper">
+            <table id="dataTable">
+                <thead>
+                    <tr>
+                        <th onclick="sortTable(0)">No ↕</th>
+                        <th onclick="sortTable(1)">Kegiatan ↕</th>
+                        <th onclick="sortTable(2)">Luas ↕</th>
+                        <th onclick="sortTable(3)">Populasi ↕</th>
+                        <th onclick="sortTable(4)">Hasil ↕</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="js/tabel.js"></script>
+</body>
+</html>

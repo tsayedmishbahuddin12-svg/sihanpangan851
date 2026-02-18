@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelola Tanaman/Ternak - SIHANPANGAN851</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+    <header>
+        <button class="back-btn" onclick="location.href='dashboard.html'">← Kembali</button>
+        <h1>Kelola Tanaman/Ternak</h1>
+    </header>
+
+    <main class="container">
+        <div class="form-card">
+            <h3>Tambah/Edit Item</h3>
+            <form id="itemForm" enctype="multipart/form-data">
+                <input type="hidden" id="itemId">
+                <input type="hidden" id="existingImage">
+                
+                <select id="pletonSelect" required>
+                    <option value="">Pilih Pleton</option>
+                </select>
+                
+                <input type="text" id="itemName" placeholder="Nama Item" required>
+                
+                <div class="file-input-wrapper">
+                    <input type="file" id="itemImage" accept="image/*" onchange="previewImage(this, 'imagePreview')">
+                    <label for="itemImage" class="file-input-label">
+                        📷 Pilih Gambar Item
+                    </label>
+                </div>
+                
+                <img id="imagePreview" class="image-preview" alt="Preview">
+                
+                <button type="submit">Simpan</button>
+                <button type="button" onclick="resetForm()">Reset</button>
+            </form>
+        </div>
+
+        <div class="data-list">
+            <h3>Daftar Item</h3>
+            <div id="itemList"></div>
+        </div>
+    </main>
+
+    <script src="../js/admin-items.js"></script>
+</body>
+</html>

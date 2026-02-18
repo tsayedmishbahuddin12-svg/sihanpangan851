@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelola Data Budidaya - SIHANPANGAN851</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+    <header>
+        <button class="back-btn" onclick="location.href='dashboard.html'">← Kembali</button>
+        <h1>Kelola Data Budidaya</h1>
+    </header>
+
+    <main class="container">
+        <div class="form-card">
+            <h3>Tambah/Edit Data</h3>
+            <form id="dataForm">
+                <input type="hidden" id="dataId">
+                
+                <select id="itemSelect" required>
+                    <option value="">Pilih Item</option>
+                </select>
+                
+                <input type="text" id="kegiatan" placeholder="Kegiatan" required>
+                <input type="text" id="luas" placeholder="Luas (contoh: 2 Ha)" required>
+                <input type="text" id="populasi" placeholder="Populasi" required>
+                <input type="text" id="hasil" placeholder="Hasil (contoh: 5 Ton)" required>
+                <button type="submit">Simpan</button>
+                <button type="button" onclick="resetForm()">Reset</button>
+            </form>
+        </div>
+
+        <div class="data-list">
+            <h3>Daftar Data</h3>
+            <div id="dataList"></div>
+        </div>
+    </main>
+
+    <script src="../js/admin-data.js"></script>
+</body>
+</html>
